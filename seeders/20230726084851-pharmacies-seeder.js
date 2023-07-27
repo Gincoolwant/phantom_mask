@@ -1,26 +1,16 @@
-'use strict';
+'use strict'
+const pharmaciesList = require('../data/pharmaciesTable.json')
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkInsert('People', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
+    const pharmacies = pharmaciesList.map(pharmacy => {
+      const { name, cashBalance } = pharmacy
+      return { name, cashBalance }
+    })
+    return queryInterface.bulkInsert('Pharmacies', pharmacies, {})
   },
 
   down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('People', null, {});
-    */
+    return queryInterface.bulkDelete('Pharmacies', null, {})
   }
-};
+}

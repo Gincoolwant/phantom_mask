@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 module.exports = (sequelize, DataTypes) => {
   const Purchase = sequelize.define('Purchase', {
     userId: {
@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     transAmount: DataTypes.DECIMAL,
     transDate: DataTypes.DATE
-  }, {});
-  Purchase.associate = function(models) {
+  }, {})
+  Purchase.associate = function (models) {
     // associations can be defined here
-  };
-  return Purchase;
-};
+  }
+  return Purchase
+}

@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 module.exports = (sequelize, DataTypes) => {
   const Pharmacy = sequelize.define('Pharmacy', {
     name: DataTypes.STRING,
     cashBalance: DataTypes.DECIMAL
-  }, {});
+  }, {})
   Pharmacy.associate = function (models) {
     // associations can be defined here
     Pharmacy.hasMany(models.OpeningHour)
@@ -12,6 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'PharmacyId',
       as: 'MaskTypeInPharmacy'
     })
-  };
-  return Pharmacy;
-};
+  }
+  return Pharmacy
+}
