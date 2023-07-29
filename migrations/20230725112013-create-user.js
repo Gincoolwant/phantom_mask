@@ -11,15 +11,15 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      cashBalance: {
+      cash_balance: {
         type: Sequelize.DECIMAL(10, 2)
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')

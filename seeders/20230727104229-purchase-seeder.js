@@ -16,7 +16,7 @@ module.exports = {
         )
 
         const [{ maskId }] = await queryInterface.sequelize.query(
-          'SELECT id as maskId FROM Masks WHERE name = :name AND color = :color AND unitPerPack = :unitPerPack;',
+          'SELECT id as maskId FROM Masks WHERE name = :name AND color = :color AND unit_per_pack = :unitPerPack;',
           {
             replacements: { name, color, unitPerPack },
             type: queryInterface.sequelize.QueryTypes.SELECT
@@ -32,14 +32,14 @@ module.exports = {
         )
 
         const [{ productId }] = await queryInterface.sequelize.query(
-          'SELECT id as productId FROM Products WHERE pharmacyId = :pharmacyId AND maskId = :maskId;',
+          'SELECT id as productId FROM Products WHERE pharmacy_id = :pharmacyId AND mask_id = :maskId;',
           {
             replacements: { pharmacyId, maskId },
             type: queryInterface.sequelize.QueryTypes.SELECT
           }
         )
 
-        histories.push({ userId, productId, transAmount: transactionAmount, transDate: transactionDate })
+        histories.push({ user_id: userId, product_id: productId, trans_amount: transactionAmount, trans_date: new Date(transactionDate) })
       }
     }
     return queryInterface.bulkInsert('Purchases', histories, {})

@@ -1,17 +1,16 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-  const OpeningHour = sequelize.define('OpeningHour', {
+  const Openinghour = sequelize.define('Openinghour', {
     pharmacyId: {
-      type: DataTypes.INTEGER,
-      references: { model: 'Pharmacy', key: 'id' }
+      type: DataTypes.INTEGER
     },
     dayOfWeek: DataTypes.INTEGER,
     open: DataTypes.TIME,
     close: DataTypes.TIME
-  }, {})
-  OpeningHour.associate = function (models) {
+  }, { underscored: true })
+  Openinghour.associate = function (models) {
     // associations can be defined here
-    OpeningHour.belongsTo(models.Pharmacy)
+    Openinghour.belongsTo(models.Pharmacy)
   }
-  return OpeningHour
+  return Openinghour
 }

@@ -1,18 +1,17 @@
 'use strict'
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('OpeningHours', {
+    return queryInterface.createTable('Openinghours', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      pharmacyId: {
-        type: Sequelize.INTEGER,
-        references: { model: 'Pharmacies', key: 'id' }
+      pharmacy_id: {
+        type: Sequelize.INTEGER
       },
-      dayOfWeek: {
+      day_of_week: {
         type: Sequelize.INTEGER
       },
       open: {
@@ -21,12 +20,12 @@ module.exports = {
       close: {
         type: Sequelize.TIME
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')
@@ -34,6 +33,6 @@ module.exports = {
     })
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('OpeningHours')
+    return queryInterface.dropTable('Openinghours')
   }
 }

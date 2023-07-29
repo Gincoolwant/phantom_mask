@@ -14,15 +14,15 @@ module.exports = {
       color: {
         type: Sequelize.STRING
       },
-      unitPerPack: {
+      unit_per_pack: {
         type: Sequelize.INTEGER
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')

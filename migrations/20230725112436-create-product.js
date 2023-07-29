@@ -8,23 +8,21 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      pharmacyId: {
-        type: Sequelize.INTEGER,
-        references: { model: 'Pharmacies', key: 'id' }
+      pharmacy_id: {
+        type: Sequelize.INTEGER
       },
-      maskId: {
-        type: Sequelize.INTEGER,
-        references: { model: 'Masks', key: 'id' }
+      mask_id: {
+        type: Sequelize.INTEGER
       },
       price: {
         type: Sequelize.DECIMAL(10, 2)
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')

@@ -4,6 +4,6 @@ const pharmacies = require('./pharmacies')
 const users = require('./users')
 
 router.use('/pharmacy', pharmacies)
-router.use('/pharmacy', users)
+router.use('/users', users)
 
 module.exports = router

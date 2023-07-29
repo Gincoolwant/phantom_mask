@@ -16,14 +16,14 @@ module.exports = {
         )
 
         const [{ maskId }] = await queryInterface.sequelize.query(
-          'SELECT id as maskId FROM Masks WHERE name = :name AND color = :color AND unitPerPack = :unitPerPack;',
+          'SELECT id as maskId FROM Masks WHERE name = :name AND color = :color AND unit_per_pack = :unitPerPack;',
           {
             replacements: { name, color, unitPerPack },
             type: queryInterface.sequelize.QueryTypes.SELECT
           }
         )
 
-        products.push({ pharmacyId, maskId, price })
+        products.push({ pharmacy_id: pharmacyId, mask_id: maskId, price })
       }
     }
     return queryInterface.bulkInsert('Products', products, {})

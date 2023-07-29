@@ -5,7 +5,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     const pharmacies = pharmaciesList.map(pharmacy => {
       const { name, cashBalance } = pharmacy
-      return { name, cashBalance }
+      return { name, cash_balance: cashBalance }
     })
     return queryInterface.bulkInsert('Pharmacies', pharmacies, {})
   },

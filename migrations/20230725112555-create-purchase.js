@@ -8,26 +8,24 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
-        type: Sequelize.INTEGER,
-        references: { model: 'Users', key: 'id' }
+      user_id: {
+        type: Sequelize.INTEGER
       },
-      productId: {
-        type: Sequelize.INTEGER,
-        references: { model: 'Products', key: 'id' }
+      product_id: {
+        type: Sequelize.INTEGER
       },
-      transAmount: {
+      trans_amount: {
         type: Sequelize.DECIMAL(10, 2)
       },
-      transDate: {
+      trans_date: {
         type: Sequelize.DATE
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')

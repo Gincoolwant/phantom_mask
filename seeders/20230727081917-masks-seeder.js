@@ -7,7 +7,7 @@ module.exports = {
     pharmaciesList.forEach(pharmacy => {
       pharmacy.masks.forEach(mask => {
         const { name, color, unitPerPack } = mask
-        masksList.push({ name, color, unitPerPack })
+        masksList.push({ name, color, unit_per_pack: unitPerPack })
       })
     })
 

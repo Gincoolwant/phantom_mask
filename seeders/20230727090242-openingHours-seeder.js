@@ -16,18 +16,18 @@ module.exports = {
 
       pharmacy.openingTimes.forEach(time => {
         openingHours.push({
-          pharmacyId: pharmacyId[0].id,
-          dayOfWeek: weekDays[time.openDay],
+          pharmacy_id: pharmacyId[0].id,
+          day_of_week: weekDays[time.openDay],
           open: time.openTime.split(' - ')[0],
           close: time.openTime.split(' - ')[1]
         })
       })
     }
 
-    return queryInterface.bulkInsert('OpeningHours', openingHours, {})
+    return queryInterface.bulkInsert('Openinghours', openingHours, {})
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('OpeningHours', null, {})
+    return queryInterface.bulkDelete('Openinghours', null, {})
   }
 }
