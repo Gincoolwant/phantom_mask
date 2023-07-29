@@ -8,12 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true
   })
   Mask.associate = function (models) {
-    // associations can be defined here
-    Mask.belongsToMany(models.Pharmacy, {
-      through: models.Product,
-      foreignKey: 'MaskId',
-      as: 'sellingSpot'
-    })
+    Mask.hasMany(models.Product, { foreignKey: 'MaskId' })
   }
   return Mask
 }
