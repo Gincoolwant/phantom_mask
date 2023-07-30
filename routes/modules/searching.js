@@ -31,7 +31,7 @@ router.get('/:searchingTerm', async (req, res) => {
     const rankingResult = matchSorter([...pharmacies, ...masks], term, { keys: ['name'] })
     res.status(200).json(rankingResult)
   } catch (err) {
-    console.log(err)
+    next(err)
   }
 })
 

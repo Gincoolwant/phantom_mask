@@ -3,7 +3,7 @@ const router = express.Router()
 const { Openinghour, Pharmacy, Product, Mask } = require('../../models')
 const { Op, Sequelize } = require('sequelize')
 
-router.get('/openingHours', async (req, res) => {
+router.get('/openingHours', async (req, res, next) => {
   try {
     const time = req.query.time
     const map = { mon: 1, tue: 2, wed: 3, thur: 4, fri: 5, sat: 6, sun: 0 }
@@ -33,11 +33,11 @@ router.get('/openingHours', async (req, res) => {
 
     res.status(200).json(openingPharmacy)
   } catch (err) {
-    console.log(err)
+    next(err)
   }
 })
 
-router.get('/stock', async (req, res) => {
+router.get('/stock', async (req, res, next) => {
   try {
     const stock = Number(req.query.num) || 0
     const [lowerBond, upperBond] = req.query.priceRange.split('-')
@@ -72,11 +72,11 @@ router.get('/stock', async (req, res) => {
 
     res.status(200).json({ Fulfill: fulfillPharmacies, Lack: neglectPharmacies })
   } catch (err) {
-    console.log(err)
+    next(err)
   }
 })
 
-router.get('/:pharmacyName/masks', async (req, res) => {
+router.get('/:pharmacyName/masks', async (req, res, next) => {
   try {
     const order = req.query.order.toLowerCase() === 'name' ? 'Mask.name' : 'price'
     const pharmacyName = req.params.pharmacyName
@@ -101,7 +101,7 @@ router.get('/:pharmacyName/masks', async (req, res) => {
     })
     res.status(200).json(productsSoldInPharmacy)
   } catch (err) {
-    console.log(err)
+    next(err)
   }
 })
 

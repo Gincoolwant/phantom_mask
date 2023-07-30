@@ -3,7 +3,7 @@ const router = express.Router()
 const { User, Pharmacy, Purchase, Product, Mask, sequelize } = require('../../models')
 const { Op, Sequelize } = require('sequelize')
 
-router.get('/trans/userTopList', async (req, res) => {
+router.get('/trans/userTopList', async (req, res, next) => {
   try {
     const defaultTop = 5
     const top = Number(req.query.top) || defaultTop
@@ -30,11 +30,11 @@ router.get('/trans/userTopList', async (req, res) => {
 
     res.status(200).json(topUsers)
   } catch (err) {
-    console.log(err)
+    next(err)
   }
 })
 
-router.get('/trans/sales', async (req, res) => {
+router.get('/trans/sales', async (req, res, next) => {
   try {
     const utcStartDate = new Date(req.query.dateRange.split('-')[0]).toUTCString()
     const endDate = req.query.dateRange.split('-')[1]
@@ -60,11 +60,11 @@ router.get('/trans/sales', async (req, res) => {
 
     res.status(200).json(sales)
   } catch (err) {
-    console.log(err)
+    next(err)
   }
 })
 
-router.get('/trans/:userId', async (req, res) => {
+router.get('/trans/:userId', async (req, res, next) => {
   try {
     const { userId } = req.params
     const { productId } = req.query
@@ -130,7 +130,7 @@ router.get('/trans/:userId', async (req, res) => {
 
     res.status(200).json(result)
   } catch (err) {
-    console.log(err)
+    next(err)
   }
 })
 
