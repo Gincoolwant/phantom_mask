@@ -2,14 +2,13 @@ const express = require('express')
 const router = express.Router()
 const { User, Purchase, Product, Mask } = require('../../models')
 const { Op, Sequelize } = require('sequelize')
-const { NULL } = require('mysql2/lib/constants/types')
 
 router.get('/trans/userTopList', async (req, res) => {
   try {
     const defaultTop = 5
     const top = Number(req.query.top) || defaultTop
     const utcStartDate = new Date(req.query.dateRange.split('-')[0]).toUTCString()
-    const endDate = req.query.dateRange.split('-')[1] || NULL
+    const endDate = req.query.dateRange?.split('-')[1]
     const utcEndDate = new Date(endDate).toUTCString()
 
     const topUsers = await Purchase.findAll({

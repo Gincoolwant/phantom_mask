@@ -70,7 +70,7 @@ router.get('/stock', async (req, res) => {
       return pharmacy.Products.length < stock
     })
 
-    res.status(200).json([{ Fulfill: fulfillPharmacies, Lack: neglectPharmacies }])
+    res.status(200).json({ Fulfill: fulfillPharmacies, Lack: neglectPharmacies })
   } catch (err) {
     console.log(err)
   }
