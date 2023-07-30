@@ -18,7 +18,8 @@ module.exports = {
         type: Sequelize.DECIMAL(10, 2)
       },
       trans_date: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       },
       created_at: {
         allowNull: false,
