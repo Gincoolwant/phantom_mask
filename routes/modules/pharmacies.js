@@ -37,9 +37,9 @@ router.get('/openingHours', async (req, res, next) => {
   }
 })
 
-router.get('/stock', async (req, res, next) => {
+router.get('/stocks', async (req, res, next) => {
   try {
-    const stock = Number(req.query.num) || 0
+    const threshold = Number(req.query.num) || 0
     const [lowerBond, upperBond] = req.query.priceRange.split('-')
     const pharmacies = await Pharmacy.findAll({
       attributes: [['id', 'pharmacyId'], ['name', 'pharmacyName']],
@@ -63,14 +63,17 @@ router.get('/stock', async (req, res, next) => {
     })
 
     const fulfillPharmacies = pharmacies.filter(pharmacy => {
-      return pharmacy.Products.length >= stock
+      return pharmacy.Products.length >= threshold
     })
 
-    const neglectPharmacies = pharmacies.filter(pharmacy => {
-      return pharmacy.Products.length < stock
+    const lackPharmacies = pharmacies.filter(pharmacy => {
+      return pharmacy.Products.length < threshold
     })
 
-    res.status(200).json({ Fulfill: fulfillPharmacies, Lack: neglectPharmacies })
+    res.status(200).json({
+      Higher: fulfillPharmacies.length > 0 ? fulfillPharmacies : null,
+      Lower: lackPharmacies.length > 0 ? lackPharmacies : null
+    })
   } catch (err) {
     next(err)
   }
@@ -106,3 +109,101 @@ router.get('/:pharmacyName/masks', async (req, res, next) => {
 })
 
 module.exports = router
+/**
+ * @swagger
+ * tags:
+ *   name: Pharmacies
+ *   description: The Pharmacies API
+ * /pharmacies/openingHours:
+ *   get:
+ *     summary: List all pharmacies open at a specific time and on a day of the week if requested.
+ *     tags: [Pharmacies]
+ *     parameters:
+ *       - in: query
+ *         name: time
+ *         description: specific time \[hh:mm\]
+ *         schema:
+ *            type: string
+ *         required: true
+ *       - in: query
+ *         name: day
+ *         description: The day of week \[Mon, Tue, Wed, Thur, Fir, Sat, Sun\]
+ *         schema:
+ *            type: string
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/openingHours'
+ *       500:
+ *         description: Fail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/failCase'
+ *
+ * /pharmacies/stocks:
+ *   get:
+ *     summary: List all pharmacies with more or less than x mask products within a price range.
+ *     tags: [Pharmacies]
+ *     parameters:
+ *       - in: query
+ *         name: num
+ *         description: The threshold values of different masks
+ *         schema:
+ *            type: integer
+ *         required: true
+  *       - in: query
+ *         name: priceRange
+ *         description: The range of price
+ *         schema:
+ *            type: number
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/stocks'
+ *       500:
+ *         description: Fail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/failCase'
+ *
+ * /pharmacies/{pharmacyName}/masks:
+ *   get:
+ *     summary: List all masks sold by a given pharmacy, sorted by mask name or price.
+ *     tags: [Pharmacies]
+ *     parameters:
+ *       - in: query
+ *         name: order
+ *         description: sorting term [name / price]
+ *         schema:
+ *            type: string
+ *         required: true
+ *       - in: path
+ *         name: pharmacyName
+ *         description: The name of the pharmacy
+ *         schema:
+ *            type: string
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/masks'
+ *       500:
+ *         description: Fail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/failCase'
+ */

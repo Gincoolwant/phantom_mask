@@ -4,7 +4,7 @@ const { Pharmacy, Mask } = require('../../models')
 const { Op, Sequelize } = require('sequelize')
 const { matchSorter } = require('match-sorter')
 
-router.get('/:searchingTerm', async (req, res) => {
+router.get('/:searchingTerm', async (req, res, next) => {
   try {
     const term = req.params.searchingTerm
     const pharmacies = await Pharmacy.findAll({
@@ -27,7 +27,6 @@ router.get('/:searchingTerm', async (req, res) => {
       group: ['name'],
       raw: true
     })
-    console.log(pharmacies, masks)
     const rankingResult = matchSorter([...pharmacies, ...masks], term, { keys: ['name'] })
     res.status(200).json(rankingResult)
   } catch (err) {
@@ -36,3 +35,35 @@ router.get('/:searchingTerm', async (req, res) => {
 })
 
 module.exports = router
+
+/**
+ * @swagger
+ * tags:
+ *   name: Searching
+ *   description: The searching API
+ * /searching/{searchingTerm}:
+ *   get:
+ *     summary: Search for pharmacies or masks by name, ranked by relevance to the search term.
+ *     tags: [Searching]
+ *     parameters:
+ *       - in: path
+ *         name: searchingTerm
+ *         description: The searching term of pharmacies and masks
+ *         schema:
+ *            type: string
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/searching'
+ *       500:
+ *         description: Fail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/failCase'
+ *
+ */

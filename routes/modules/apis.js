@@ -4,7 +4,7 @@ const pharmacies = require('./pharmacies')
 const users = require('./users')
 const searching = require('./searching')
 
-router.use('/pharmacy', pharmacies)
+router.use('/pharmacies', pharmacies)
 router.use('/users', users)
 router.use('/searching', searching)
 

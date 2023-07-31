@@ -1,5 +1,5 @@
-const pharmaciesRaw = require('./data/pharmacies.json')
-const usersRaw = require('./data/users.json')
+const pharmaciesRaw = require('../data/pharmacies.json')
+const usersRaw = require('../data/users.json')
 const fs = require('fs')
 
 function pharmaciesFormatter (pharmaciesRaw) {
