@@ -1,5 +1,4 @@
 # Response
-> Current content is an example; please edit it to fit your style.
 ## A. Required Information
 ### A.1. Requirement Completion Rate
 - [x] List all pharmacies open at a specific time and on a day of the week if requested.
@@ -42,51 +41,28 @@
 
 ### A.3. Import Data Commands
 Please run these two script commands to migrate the data into the database.
-
+  > Pre-setting
+  - Create MySQL database
+  - Setting connection config in ./config/config.json
+> Run Server
 ```bash
-$ rake import_data:pharmacies[PATH_TO_FILE]
-$ rake import_data:users[PATH_TO_FILE]
+$ git clone https://github.com/Gincoolwant/phantom_mask.git
+$ npm install
+$ npx sequelize db:migrate
+$ npx sequelize db:seed:all
+$ npm run start
 ```
-## B. Bonus Information
-
->  If you completed the bonus requirements, please fill in your task below.
-### B.1. Test Coverage Report
-
-I wrote down the 20 unit tests for the APIs I built. Please check the test coverage report at [here](#test-coverage-report).
-
-You can run the test script by using the command below:
-
-```ruby
-bundle exec rspec spec
-```
-
-### B.2. Dockerized
-Please check my Dockerfile / docker-compose.yml at [here](#dockerized).
-
-On the local machine, please follow the commands below to build it.
-
-```bash
-$ docker build --build-arg ENV=development -p 80:3000 -t my-project:1.0.0 .  
-$ docker-compose up -d
-
-# go inside the container, run the migrate data command.
-$ docker exec -it my-project bash
-$ rake import_data:pharmacies[PATH_TO_FILE]
-$ rake import_data:user[PATH_TO_FILE]
-```
-
-### B.3. Demo Site Url
-
-The demo site is ready on [heroku](#demo-site-url); you can try any APIs on this demo site.
-
+ When the following words appear on the terminal, it means the execution is successful
+ ```
+ App is running on port 3000
+ ```
 ## C. Other Information
 
 ### C.1. ERD
 
-My ERD [erd-link](#erd-link).
+[ERD Link](https://drawsql.app/teams/kdan/diagrams/kdan).
 
 ### C.2. Technical Document
-
-For frontend programmer reading, please check this [technical document](technical-document) to know how to operate those APIs.
+none
 
 - --
