@@ -38,7 +38,7 @@
   ```
 ### A.2. API Document
 [Swagger API document](http://localhost:3000/api-docs/)
-
+ - have to run up the server first
 ### A.3. Import Data Commands
 Please run these two script commands to migrate the data into the database.
   > Pre-setting
