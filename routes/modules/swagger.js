@@ -34,7 +34,7 @@ module.exports = router
  *           type: Error name
  *           message: Error message
  *
- *     searching:
+ *     search:
  *       type: array
  *       properties:
  *         userId:

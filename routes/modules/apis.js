@@ -2,10 +2,10 @@ const express = require('express')
 const router = express.Router()
 const pharmacies = require('./pharmacies')
 const users = require('./users')
-const searching = require('./searching')
+const search = require('./search')
 
 router.use('/pharmacies', pharmacies)
 router.use('/users', users)
-router.use('/searching', searching)
+router.use('/search', search)
 
 module.exports = router

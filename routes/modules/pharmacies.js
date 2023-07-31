@@ -160,7 +160,7 @@ module.exports = router
  *         name: priceRange
  *         description: The range of price
  *         schema:
- *            type: number
+ *            type: string
  *         required: true
  *     responses:
  *       200:

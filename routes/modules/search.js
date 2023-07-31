@@ -4,13 +4,13 @@ const { Pharmacy, Mask } = require('../../models')
 const { Op, Sequelize } = require('sequelize')
 const { matchSorter } = require('match-sorter')
 
-router.get('/:searchingTerm', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
-    const term = req.params.searchingTerm
+    const { keyword } = req.query
     const pharmacies = await Pharmacy.findAll({
       attributes: ['name'],
       where: {
-        name: { [Op.like]: `%${term}%` }
+        name: { [Op.like]: `%${keyword}%` }
       },
       group: ['name'],
       raw: true
@@ -20,14 +20,14 @@ router.get('/:searchingTerm', async (req, res, next) => {
       attributes: [[Sequelize.literal('CONCAT(name, \' (\', color, \') (\', unit_per_pack, \' per pack)\')'), 'name']],
       where: {
         [Op.or]: [
-          { name: { [Op.like]: `%${term}%` } },
-          { color: { [Op.like]: `%${term}%` } }
+          { name: { [Op.like]: `%${keyword}%` } },
+          { color: { [Op.like]: `%${keyword}%` } }
         ]
       },
       group: ['name'],
       raw: true
     })
-    const rankingResult = matchSorter([...pharmacies, ...masks], term, { keys: ['name'] })
+    const rankingResult = matchSorter([...pharmacies, ...masks], keyword, { keys: ['name'] })
     res.status(200).json(rankingResult)
   } catch (err) {
     next(err)
@@ -41,14 +41,14 @@ module.exports = router
  * tags:
  *   name: Searching
  *   description: The searching API
- * /searching/{searchingTerm}:
+ * /search:
  *   get:
  *     summary: Search for pharmacies or masks by name, ranked by relevance to the search term.
  *     tags: [Searching]
  *     parameters:
- *       - in: path
- *         name: searchingTerm
- *         description: The searching term of pharmacies and masks
+ *       - in: query
+ *         name: keyword
+ *         description: The keyword in pharmacies or masks
  *         schema:
  *            type: string
  *         required: true
@@ -58,7 +58,7 @@ module.exports = router
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/searching'
+ *               $ref: '#/components/schemas/search'
  *       500:
  *         description: Fail
  *         content:
